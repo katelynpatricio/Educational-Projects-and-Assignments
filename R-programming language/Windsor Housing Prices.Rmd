@@ -1,0 +1,36 @@
+---
+title: 'Regressionary Difficulties: Windsor, Canada'
+author: "Katelyn Patricio"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(AER)
+library(ggfortify)
+data("HousePrices")
+```
+
+### Modeling the impact of location on price
+```{r}
+ch <- lm(price ~ lotsize + bedrooms + bathrooms + recreation + garage + prefer, data = HousePrices)
+
+summary(ch)
+```
+
+### Modeling the impact of AC on price
+```{r}
+ac <- lm(price ~ lotsize + bedrooms + bathrooms + recreation + garage + aircon, data = HousePrices)
+
+summary(ac)
+```
+### Checking if each model is corrupted by regression violation assumptions
+```{r}
+autoplot(ch) 
+```
+```{r}
+autoplot(ac)
+```
+
+### Conclusion:
+#### In both models, all variables are statistically significant (three stars) suggesting that all of these impact housing prices. Focusing on our first model, location has a large impact on housing price even after controlling for all of the other variables. Looking at its coefficent, it seems that homes in preferred areas add about $11,606 to its price. On the other hand, the same goes for aircon. A house that has AC increases the house price by approximately $15,000. Although these are indicated, there could be some outliers in this data that could be skewing the results according to our diagnostic plots. With that being said, location and aircon do have an impact on housing prices, but additional examinations might be needed to refine the model due to the outcomes of our diagnostic plots. 
